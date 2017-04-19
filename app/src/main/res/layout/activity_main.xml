@@ -26,4 +26,26 @@
         android:ems="10"
         android:id="@+id/editText" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Name2"
+        android:ems="10"
+        android:id="@+id/editText2" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner" />
+
+    <com.sebullek.editspinner.EditSpinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Edit Spinner"
+        android:ems="10"
+        android:id="@+id/editSpinner" />
+
+
 </LinearLayout>

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">EditSpinner</string>
+
+    <string-array name="edits_array">
+        <item>text one</item>
+        <item>text two</item>
+        <item>text three</item>
+        <item>custom text</item>
+    </string-array>
 </resources>
