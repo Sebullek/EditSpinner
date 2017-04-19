@@ -9,14 +9,62 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.sebullek.editspinner.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:textSize="30sp"
-        android:id="@+id/textView" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            android:layout_weight="2" />
+
+        <com.sebullek.editspinner.EditSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Edit Spinner"
+            android:ems="10"
+            android:id="@+id/editSpinner"
+            android:layout_margin="20dp"
+            android:hint="enter security question"
+            android:textColorHint="#aa828282"
+            android:textSize="18dp"
+            android:padding="8dp"
+            app:dropDownDrawable="@drawable/picker"
+            app:dropDownDrawableSpacing="15dp"
+            app:dropDownDrawableWidth="25dp"
+            app:dropDownDrawableHeight="25dp"
+            app:dropDownAnimStyle="@style/CustomPopupAnimation"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name2"
+            android:ems="10"
+            android:id="@+id/editText2"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"
+            android:textSize="30sp"
+            android:id="@+id/textView" />
+    </LinearLayout>
 
     <EditText
         android:layout_width="match_parent"
@@ -24,28 +72,8 @@
         android:inputType="textPersonName"
         android:text="Name"
         android:ems="10"
-        android:id="@+id/editText" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name2"
-        android:ems="10"
-        android:id="@+id/editText2" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner" />
-
-    <com.sebullek.editspinner.EditSpinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Edit Spinner"
-        android:ems="10"
-        android:id="@+id/editSpinner" />
+        android:id="@+id/editText"
+        android:layout_weight="1" />
 
 
 </LinearLayout>

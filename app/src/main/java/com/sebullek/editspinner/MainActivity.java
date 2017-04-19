@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
         editText = (EditText)findViewById(R.id.editText);
         editText2 = (EditText)findViewById(R.id.editText2);
 
+        editText.setOnClickListener(onOnClickEvent);
+        editText2.setOnClickListener(onOnClickEvent);
+
+
         textView = (TextView)findViewById(R.id.textView);
 
         //boolean isClicked = editText.performClick();
@@ -53,28 +57,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 */
+        /*
+        preference_category
+        select_dialog_item
+        simple_dropdown_item_1line
+        simple_gallery_item
+         */
         spinner = (Spinner)findViewById(R.id.spinner);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.edits_array));
         spinner.setAdapter(adapter);
 
         editSpinner = (EditSpinner) findViewById(R.id.editSpinner);
+
+        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.edits_array));
+        editSpinner.setAdapter(adapter);
+
         editSpinner.setOnClickListener(new DoubleClickListener() {
             @Override
             public void onSingleClick(View v) {
                 Log.i(TAG, "onSingleClick");
                 textView.setText("Single Click EditSpinner");
+                editSpinner.showDropDown();
             }
 
             @Override
             public void onDoubleClick(View v) {
                 Log.i(TAG, "onDoubleClick");
                 textView.setText("Double Click EditSpinner");
+                //z disable to enable
             }
         });
 
 
-        editText.setOnClickListener(onOnClickEvent);
-        editText2.setOnClickListener(onOnClickEvent);
     }
 
     private View.OnClickListener onOnClickEvent = new DoubleClickListener() {
