@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 
@@ -27,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
     EditText editText2;
     TextView textView;
-    Spinner spinner;
-    SpinnerAdapter adapter;
     EditSpinner editSpinner;
     EditSpinner editSpinner2;
 
@@ -42,10 +37,6 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup viewGroup = (ViewGroup) findViewById(android.R.id.content);
         disableAllEditText(viewGroup);
 
-        spinner = (Spinner)findViewById(R.id.spinner);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.edits_array));
-        spinner.setAdapter(adapter);
-
         editText = (EditText)findViewById(R.id.editText);
         editText2 = (EditText)findViewById(R.id.editText2);
         editSpinner = (EditSpinner) findViewById(R.id.editSpinner);
@@ -58,15 +49,17 @@ public class MainActivity extends AppCompatActivity {
         editSpinner2.setAdapter(adapter);
 
 
-        editText.setOnClickListener(onOnClickEvent);
-        editText2.setOnClickListener(onOnClickEvent);
+        editText.setOnClickListener(onClickEvent);
+        editText2.setOnClickListener(onClickEvent);
         editSpinner.setOnClickListener(doubleClickListener);
         editSpinner2.setOnClickListener(doubleClickListener);
+
 
         editText.setOnEditorActionListener(onEditorActionListener);
         editText2.setOnEditorActionListener(onEditorActionListener);
         editSpinner.setOnEditorActionListener(onEditorActionListener);
         editSpinner2.setOnEditorActionListener(onEditorActionListener);
+
 
         editText.setOnFocusChangeListener(onFocusChangeListener);
         editText2.setOnFocusChangeListener(onFocusChangeListener);
@@ -75,107 +68,128 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private DoubleClickListener doubleClickListener = new DoubleClickListener() {
+
         @Override
         public void onSingleClick(View v) {
-            Log.i(TAG, "onSingleClick " + v.getId());
-            textView.setText("Single Click EditSpinner");
+
             disableEditText(v);
 
+            checkSingleClickView(v);
+
+            // show a list
             EditSpinner editSpinner = (EditSpinner) v;
             editSpinner.showDropDown();
         }
 
         @Override
         public void onDoubleClick(View v) {
-            Log.i(TAG, "onDoubleClick");
-            textView.setText("Double Click EditSpinner");
-            unableEditText(v);
-            //z disable to enable
+
+            checkDoubleClickView(v);
+
+            enableEditText(v);
         }
     };
 
-    private View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            //disableEditText(v);
-            if (!hasFocus) {
-                // your action here
-
-                Log.i(TAG, "!hasFocus " + v.getId());
-                disableEditText(v);
-            }
-
-            Log.i(TAG, "onFocusChange " + v.getId());
-        }
-    };
-
-    private EditText.OnEditorActionListener onEditorActionListener = new EditText.OnEditorActionListener() {
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            Log.i(TAG, "onEditorAction()");
-
-            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
-                Log.i(TAG, "actionId " + v.getId());
-                disableEditText(v);
-                return true;
-            }
-            Log.i(TAG, "onEditorAction " + v.getId());
-            return false;
-        }
-    };
-
-    private View.OnClickListener onOnClickEvent = new DoubleClickListener() {
+    private View.OnClickListener onClickEvent = new DoubleClickListener() {
 
         @Override
         public void onSingleClick(View v) {
 
             disableEditText(v);
 
-            switch (v.getId())
-            {
-                case R.id.editText:
-                    textView.setText("onOnClickEvent Single Click EditSpinner1");
-                    Log.i(TAG, "onSingleClick");
-
-                    //EditText editText = (EditText)findViewById(v.getId());
-                    //editText.setInputType(InputType.TYPE_NULL);
-                    break;
-                case R.id.editText2:
-                    textView.setText("onOnClickEvent Single Click EditSpinner2");
-                    Log.i(TAG, "onSingleClick");
-                    break;
-            }
+            checkSingleClickView(v);
 
         }
 
         @Override
         public void onDoubleClick(View v) {
 
-            unableEditText(v);
+            enableEditText(v);
 
-            switch (v.getId())
-            {
-                case R.id.editText:
-                    textView.setText("onOnClickEvent Double Click EditSpinner1");
-                    Log.i(TAG, "onDoubleClick");
+            checkDoubleClickView(v);
+        }
+    };
 
-                    //EditText editText = (EditText)findViewById(v.getId());
-                    //editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    break;
-                case R.id.editText2:
-                    textView.setText("onOnClickEvent Double Click EditSpinner2");
-                    Log.i(TAG, "onDoubleClick");
-                    break;
+
+    // Check which View was clicked
+    private void checkSingleClickView(View v) {
+        switch (v.getId())
+        {
+            case R.id.editText:
+                textView.setText("Single Click editText");
+                break;
+            case R.id.editText2:
+                textView.setText("Single Click editText2");
+                break;
+            case R.id.editSpinner:
+                textView.setText("Single Click editSpinner");
+                break;
+            case R.id.editSpinner2:
+                textView.setText("Single Click EditSpinner2");
+                break;
+        }
+    }
+
+    private void checkDoubleClickView(View v) {
+        switch (v.getId())
+        {
+            case R.id.editText:
+                textView.setText("Double Click editText");
+                break;
+            case R.id.editText2:
+                textView.setText("Double Click editText2");
+                break;
+            case R.id.editSpinner:
+                textView.setText("Double Click editSpinner");
+                break;
+            case R.id.editSpinner2:
+                textView.setText("Double Click EditSpinner2");
+                break;
+        }
+    }
+
+
+    private View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            //disableEditText(v);
+
+
+            if (!hasFocus) {
+                // end focusing on View
+
+                disableEditText(v);
+            }
+
+            if (hasFocus) {
+
+                // start focusing on View
+                // call onClick method
+
+                v.performClick();
             }
         }
     };
 
-    private void disableEditText(View v) {
-        //Log.i(TAG, "disableEditText");
-        //Log.i(TAG, "disableEditText " + v.getId());
+    private EditText.OnEditorActionListener onEditorActionListener = new EditText.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
+
+                // End typing text
+
+                disableEditText(v);
+                return true;
+            }
+            return false;
+        }
+    };
+
+    private void disableEditText(View v) {
+
+        // disable typing
 
         EditText editText = (EditText)findViewById(v.getId());
         editText.setInputType(InputType.TYPE_NULL);
@@ -184,9 +198,9 @@ public class MainActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 
-    private void unableEditText(View v) {
-        //Log.i(TAG, "unableEditText");
-        //Log.i(TAG, "disableEditText " + v.getId());
+    private void enableEditText(View v) {
+
+        // enable typing
 
         EditText editText = (EditText)findViewById(v.getId());
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -197,6 +211,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void disableAllEditText(ViewGroup viewGroup) {
 
+        // disable typing in all of the EditTexts
+
         int count = viewGroup.getChildCount();
         for (int i = 0; i < count; i++) {
             View view = viewGroup.getChildAt(i);
@@ -204,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
                 disableAllEditText((ViewGroup) view);
             else if (view instanceof EditText) {
                 EditText editText = (EditText) view;
-                editText.setText(i + " id: " + editText.getId());
+                //editText.setText(i + " id: " + editText.getId());
                 disableEditText(editText);
             }
 

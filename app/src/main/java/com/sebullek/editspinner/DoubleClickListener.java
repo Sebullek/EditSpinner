@@ -1,6 +1,7 @@
 package com.sebullek.editspinner;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Timer;
@@ -10,14 +11,15 @@ import java.util.TimerTask;
  * Created by Bastek on 17.04.2017.
  */
 
-public abstract class DoubleClickListener implements View.OnClickListener {
+public abstract class DoubleClickListener implements View.OnClickListener/*, View.OnFocusChangeListener */{
+
 
     private Timer timer = null;  //at class level;
     private int DELAY   = 400;
 
     private static final long DOUBLE_CLICK_TIME_DELTA = 300;//milliseconds
 
-    long lastClickTime = 0;
+    static long lastClickTime = 0;
 
     @Override
     public void onClick(View v) {
@@ -31,7 +33,15 @@ public abstract class DoubleClickListener implements View.OnClickListener {
     }
 
 
+    public static void focusChange() {
+        lastClickTime = System.currentTimeMillis();
+    }
 
+/*
+    public void focusOnChange() {
+        lastClickTime = System.currentTimeMillis();
+    }
+*/
     public void processSingleClickEvent(final View v){
 
         final Handler handler=new Handler();
@@ -62,6 +72,8 @@ public abstract class DoubleClickListener implements View.OnClickListener {
         }
         onDoubleClick(v);//Do what ever u want on Double Click
     }
+
+    //public abstract void onChangeFocus(View v);
 
     public abstract void onSingleClick(View v);
 
